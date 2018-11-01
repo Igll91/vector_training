@@ -83,13 +83,18 @@ namespace etk {
         unsigned int size() const;
 
         unsigned int capacity() const;
+
     private:
         // insert implementation specific members here
 
+        static const unsigned int DEFAULT_CAPACITY = 2;
+
         bool resize();
 
+        bool init(const unsigned int size);
+
         int* _elements;
-        unsigned int _numOfElements = 0;
-        unsigned int _capacity = 1;
+        unsigned int _numOfElements;
+        unsigned int _capacity;
     };
 }

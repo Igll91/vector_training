@@ -4,10 +4,15 @@
 void printVec(etk::vector& vec)
 {
     std::cout << "printing vec elements: " << std::endl;
-    for(int el = 0; el < vec.size(); ++el)
+    for(unsigned int el = 0; el < vec.size(); ++el)
     {
         std::cout << "el: " << vec.at(el) << std::endl;
     }
+}
+
+void printSize(etk::vector& vec, const int expectedSize)
+{
+    std::cout << "Size should be: " << expectedSize <<  " == " << vec.size() << std::endl;
 }
 
 int main()
@@ -15,22 +20,23 @@ int main()
     std::cout << "Starting..." << std::endl;
 
     etk::vector a(5);
-    std::cout << a.size() << std::endl;
-
     etk::vector b(7);
-    std::cout << b.size() << std::endl;
-
     etk::vector c;
-    std::cout << c.size() << std::endl;
-
     etk::vector d({5,10,15,20,25,30});
-    std::cout << d.size() << std::endl;
+
+    printSize(a, 0);
+    printSize(b, 0);
+    printSize(c, 0);
+    printSize(d, 6);
 
     a.push_back(1);
     a.push_back(2);
 
     etk::vector e(a);
-    std::cout << e.size() << std::endl;
+    printSize(a, 2);
+    printSize(e, 2);
+
+    std::cout << "expecting resize call here..." << std::endl;
 
     a.push_back(3);
     a.push_back(4);
@@ -38,7 +44,7 @@ int main()
     a.push_back(6);
     a.push_back(7);
 
-    std::cout << a.size() << std::endl;
+    printSize(a, 7);
 
     printVec(a);
     printVec(d);
