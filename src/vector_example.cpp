@@ -51,8 +51,12 @@ namespace etk {
 
     vector& vector::operator=(const vector& other)
     {
+        std::cout << this << std::endl;
+        std::cout << &other << std::endl;
+
         if(this != &other)
         {
+            std::cout << "copy assignment operator called" << std::endl;
             *this = vector(other);
         }
 
