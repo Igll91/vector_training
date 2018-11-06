@@ -93,6 +93,8 @@ namespace etk {
 
         bool init(const unsigned int size);
 
+        void swap(const vector& other) throw();
+
         int* _elements;
         unsigned int _numOfElements;
         unsigned int _capacity;

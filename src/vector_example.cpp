@@ -51,13 +51,9 @@ namespace etk {
 
     vector& vector::operator=(const vector& other)
     {
-        std::cout << this << std::endl;
-        std::cout << &other << std::endl;
-
         if(this != &other)
         {
-            std::cout << "copy assignment operator called" << std::endl;
-            *this = vector(other);
+            this->swap(other);
         }
 
         return *this;
@@ -120,10 +116,24 @@ namespace etk {
         return _capacity;
     }
 
+    void vector::swap(const vector& other) throw()
+    {
+        int* ptrElements = _elements;
+        int* tmpElements = new (std::nothrow) int[other.size()];
+
+        if(tmpElements)
+        {
+            std::memcpy(tmpElements, _elements, _capacity * sizeof(int));
+            delete[] ptrElements;
+
+            _elements       = tmpElements;
+            _capacity       = other.capacity();
+            _numOfElements  = other.size();
+        }
+    }
+
     bool vector::resize()
     {
-        std::cout << "resize()" << std::endl; // debug printout
-
         int newSize         = _capacity * 2;      // TODO: rework resize
         int* newElements    = new (std::nothrow) int[newSize];
 
@@ -142,8 +152,8 @@ namespace etk {
 
         std::memcpy(newElements, _elements, _capacity * sizeof(int));
 
-        _capacity = newSize;
         delete[] _elements;
+        _capacity = newSize;
         _elements = newElements;
 
         return true;
