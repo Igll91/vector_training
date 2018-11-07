@@ -82,6 +82,11 @@ namespace etk {
         */
         unsigned int size() const;
 
+        /*!
+         * Returns the number of allocated elements.
+         *
+         * @return int The number of allocated elements.
+         */
         unsigned int capacity() const;
 
     private:
@@ -89,10 +94,24 @@ namespace etk {
 
         static const unsigned int DEFAULT_CAPACITY = 2;
 
+        /*!
+         * Increase the capacity by double. If there is not enough
+         * memory try to increase capacity by sizeof element + 1.
+         *
+         * @return bool True if resize was sucessfull.
+         */
         bool resize();
 
+        /*!
+         * Allocate memory for given size number of elements.
+         *
+         * @return bool True if initialization was sucessfull.
+         */
         bool init(const unsigned int size);
 
+        /*!
+         * Swap given vector values with calling vector object.
+         */
         void swap(const vector& other) throw();
 
         int* _elements;

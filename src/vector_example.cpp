@@ -118,13 +118,12 @@ namespace etk {
 
     void vector::swap(const vector& other) throw()
     {
-        int* ptrElements = _elements;
         int* tmpElements = new (std::nothrow) int[other.size()];
 
         if(tmpElements)
         {
-            std::memcpy(tmpElements, _elements, _capacity * sizeof(int));
-            delete[] ptrElements;
+            std::memcpy(tmpElements, _elements, other.size() * sizeof(int));
+            delete[] _elements;
 
             _elements       = tmpElements;
             _capacity       = other.capacity();
@@ -134,7 +133,7 @@ namespace etk {
 
     bool vector::resize()
     {
-        int newSize         = _capacity * 2;      // TODO: rework resize
+        int newSize         = _capacity * 2;
         int* newElements    = new (std::nothrow) int[newSize];
 
         // memory allocation failed, trying to increase by minimal value

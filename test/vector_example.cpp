@@ -77,6 +77,46 @@ TEST(VectorTest, DeepCopyVerification)
     EXPECT_EQ(4, a.size());
     EXPECT_EQ(6, a.capacity());
 
+    c.push_back(423);
+    c.push_back(74);
+    c.push_back(99);
+
+    EXPECT_EQ(4, b.size());
+    EXPECT_EQ(6, b.capacity());
+
+    EXPECT_EQ(7, c.size());
+    EXPECT_EQ(12, c.capacity());
+
+    EXPECT_EQ(4, a.size());
+    EXPECT_EQ(6, a.capacity());
+}
+
+TEST(VectorTest, ReadingVerification)
+{
+    etk::vector a {10, 12, 16};
+
+    EXPECT_EQ(10, a[0]);
+    EXPECT_EQ(10, a.at(0));
+
+    EXPECT_EQ(12, a[1]);
+    EXPECT_EQ(12, a.at(1));
+
+    EXPECT_EQ(16, a[2]);
+    EXPECT_EQ(16, a.at(2));
+
+    a.push_back(202);
+
+    EXPECT_EQ(202, a[3]);
+    EXPECT_EQ(202, a.at(3));
+
+    try
+    {
+        a.at(21231);
+        FAIL() << "Expected std::invalid_argument";
+    }
+    catch(std::invalid_argument const & err) {
+        EXPECT_EQ(err.what(),std::string("received invalid index value."));
+    }
 }
 
 int main(int argc, char **argv) {
